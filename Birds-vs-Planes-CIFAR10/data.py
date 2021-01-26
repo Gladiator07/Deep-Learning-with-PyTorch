@@ -1,4 +1,6 @@
 import torch 
+from torchvision import datasets, transforms
+
 torch.manual_seed(123)
 
 class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
