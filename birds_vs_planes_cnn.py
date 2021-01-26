@@ -28,13 +28,15 @@ cifar10_val = datasets.CIFAR10(
 )
 
 # extracting birds and airplanes data
-label_map={0: 0, 2: 1}
-class_names=['airplane', 'bird']
-cifar2=[(img, label_map[label]) for img, label in cifar10
-            if label in [0, 2]]
-cifar2_val=[(img, label_map[label])
-             for img, label in cifar10_val if label in [0, 2]]
+def processed_data():
+    label_map={0: 0, 2: 1}
+    class_names=['airplane', 'bird']
+    cifar2=[(img, label_map[label]) for img, label in cifar10
+                if label in [0, 2]]
+    cifar2_val=[(img, label_map[label])
+                for img, label in cifar10_val if label in [0, 2]]
 
+    return cifar2, cifar2_val
 # defining the model
 model = nn.Sequential(
             nn.Conv2d(3, 16, kernel_size=3, padding=1),
