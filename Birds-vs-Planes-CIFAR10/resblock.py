@@ -5,7 +5,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 from data import processed_data
-from utils import device, training_loop
+from utils import device, training_loop, validate
 torch.manual_seed(123)
 
 cifar2, cifar2_val = processed_data()
@@ -34,7 +34,7 @@ class NetResDeep(nn.Module):
         self.n_chans1 = n_chans1
         self.conv1 = nn.Conv2d(3, n_chans1, kernel_size=3, padding=1)
         self.resblocks = nn.Sequential(
-            *(n_blocks * [ResBlock(n_chans=nchans1)]))
+            *(n_blocks * [ResBlock(n_chans=n_chans1)]))
         self.fc1 = nn.Linear(8 * 8 * n_chans1, 32)
         self.fc2 = nn.Linear(32, 2)
 
@@ -57,7 +57,7 @@ loss_fn = nn.CrossEntropyLoss()
 training_loop(
     n_epochs=100,
     optimizer=optimizer,
-    model=model_netres,
+    model=model_deepresnet,
     loss_fn=loss_fn,
     device=device
 )
@@ -65,5 +65,5 @@ training_loop(
 validate(model_deepresnet, device)
 
 # This model gives following result:
-# Accuracy train: 0.97
+# Accuracy train: 1.00
 # Accuracy valid: 0.89
