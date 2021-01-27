@@ -28,6 +28,7 @@ class NetBatchNorm(nn.Module):
         out = F.max_pool2d(torch.tanh(out), 2)
         out = self.conv2_batchnorm(self.conv2(out))
         out = F.max_pool2d(torch.tanh(out), 2)
+        out = out.view(-1, 8 * 8 * self.n_chans1 // 2)
         out = torch.tanh(self.fc1(out))
         out = self.fc2(out)
         return out
@@ -73,5 +74,5 @@ training_loop(
 validate(model_batchnorm, device)
 
 # This model gives the following result:
-# Accuracy train: 0.93
-# Accuracy valid: 0.90
+# Accuracy train: 1.00
+# Accuracy valid: 0.88
