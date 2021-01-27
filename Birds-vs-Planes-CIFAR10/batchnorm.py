@@ -4,7 +4,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 import datetime
 from data import processed_data
-from utils import device, validate, training_loop
+from utils import device, training_loop
 
 
 torch.manual_seed(123)
